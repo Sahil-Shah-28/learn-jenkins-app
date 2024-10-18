@@ -20,20 +20,11 @@ pipeline {
                 '''
             }
         }
-       stage('Test') {
-    steps {
-        echo "In test stage"
-        script {
-            // Check if the file exists
-            def fileExists = sh(script: 'test -f "build/index.html"', returnStatus: true)
-            if (fileExists == 0) {
-                echo 'build/index.html exists.'
-            } else {
-                error 'build/index.html does not exist. Build might have failed.'
+        stage('Test'){
+            steps{
+                echo "In test stage"
+                sh 'test -f build/index.html'
             }
         }
-    }
-}
-
     }
 }
