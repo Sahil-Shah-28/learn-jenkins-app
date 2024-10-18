@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Test'){
+            steps{
+                test -f "public/index.html"
+            }
+        }
         stage('Build') {
             agent{
                 docker{
