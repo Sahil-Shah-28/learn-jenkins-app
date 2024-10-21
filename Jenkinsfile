@@ -20,21 +20,24 @@ pipeline {
         //         '''
         //     }
         // }
-        stage('Test'){
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps{
-                echo "In test stage"
-                sh '''
-                test -f build/index.html 
-                npm test
-                '''
-            }
+       stage('Test') {
+    agent {
+        docker {
+            image 'node:18-alpine'
+            reuseNode true
         }
+    }
+    steps {
+        echo "In test stage"
+        sh '''
+        # Ensure the working directory is correct
+        npm install
+        test -f build/index.html 
+        npm test
+        '''
+    }
+}
+
         stage('E2E'){
             agent {
                 docker {
